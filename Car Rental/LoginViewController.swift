@@ -69,6 +69,15 @@ class LoginViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    private var registerButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("REGISTER", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 
     private var mainStackView: UIStackView = {
         let view = UIStackView()
@@ -100,6 +109,7 @@ class LoginViewController: UIViewController {
         title = "Log In"
         
         passwordSwitchButton.addTarget(self, action: #selector(switchButtonTapped), for: .touchUpInside)
+        registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
     }
     
     private func configureConstraints() {
@@ -113,6 +123,7 @@ class LoginViewController: UIViewController {
         mainStackView.addArrangedSubview(fullNameTextField)
         mainStackView.addArrangedSubview(passwordStackView)
         mainStackView.addArrangedSubview(loginButton)
+        mainStackView.addArrangedSubview(registerButton)
         
         NSLayoutConstraint.activate([
             backgroungImageView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -133,5 +144,10 @@ class LoginViewController: UIViewController {
     
     @objc private func switchButtonTapped() {
         passwordTextField.isSecureTextEntry = !passwordSwitchButton.isOn
+    }
+    
+    @objc private func registerButtonTapped() {
+        let controller = RegisterViewController()
+        navigationController?.show(controller, sender: self)
     }
 }
