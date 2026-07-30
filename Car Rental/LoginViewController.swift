@@ -156,7 +156,8 @@ class LoginViewController: UIViewController {
                let savedUser = fileManager.users.contains(where: { $0.fullName == writtenFullName && $0.password == writtenPassword })
                
                if savedUser {
-                   
+                   let controller = HomeViewController()
+                   navigationController?.setViewControllers([controller], animated: true)
                } else {
                    showDefaultAlert(title: "Login Failed!",
                                     message: "Invalid Full Name or Password")
