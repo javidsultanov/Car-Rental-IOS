@@ -19,13 +19,23 @@ class LoginViewController: UIViewController {
     }()
     
     private var logoImageView: UIImageView = {
-            let imageView = UIImageView()
-            imageView.image = UIImage(systemName: "person")
-            imageView.tintColor = .black
-            imageView.contentMode = .scaleAspectFit
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            return imageView
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "person")
+        imageView.tintColor = .black
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
         }()
+    
+    private var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "driveit"
+        label.textColor = .black
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 44, weight: .bold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     private var mainStackView: UIStackView = {
         let view = UIStackView()
@@ -53,6 +63,7 @@ class LoginViewController: UIViewController {
         view.addSubview(mainStackView)
         
         mainStackView.addArrangedSubview(logoImageView)
+        mainStackView.addArrangedSubview(titleLabel)
         
         NSLayoutConstraint.activate([
             backgroungImageView.topAnchor.constraint(equalTo: view.topAnchor),
