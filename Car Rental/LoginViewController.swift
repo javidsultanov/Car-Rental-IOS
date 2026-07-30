@@ -45,9 +45,21 @@ class LoginViewController: UIViewController {
         textField.autocapitalizationType = .words
         textField.textAlignment = .center
         textField.layer.cornerRadius = 28
-        textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor.white.cgColor
         textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
+    private var passwordTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Password"
+        textField.backgroundColor = .white
+        textField.borderStyle = .none
+        textField.autocapitalizationType = .none
+        textField.textAlignment = .center
+        textField.layer.cornerRadius = 28
+        textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        textField.isSecureTextEntry = true
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -86,9 +98,12 @@ class LoginViewController: UIViewController {
         view.addSubview(backgroungImageView)
         view.addSubview(mainStackView)
         
+        passwordStackView.addArrangedSubview(passwordTextField)
+        
         mainStackView.addArrangedSubview(logoImageView)
         mainStackView.addArrangedSubview(titleLabel)
         mainStackView.addArrangedSubview(fullNameTextField)
+        mainStackView.addArrangedSubview(passwordStackView)
         
         NSLayoutConstraint.activate([
             backgroungImageView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -101,7 +116,8 @@ class LoginViewController: UIViewController {
             mainStackView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.88),
             
             logoImageView.heightAnchor.constraint(equalToConstant: 144),
-            fullNameTextField.heightAnchor.constraint(equalToConstant: 60)
+            fullNameTextField.heightAnchor.constraint(equalToConstant: 60),
+            passwordTextField.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
 }
