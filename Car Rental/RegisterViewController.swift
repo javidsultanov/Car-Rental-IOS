@@ -66,6 +66,20 @@ class RegisterViewController: UIViewController {
         return textField
     }()
     
+    private var passwordTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Password"
+        textField.backgroundColor = .white
+        textField.autocapitalizationType = .none
+        textField.isSecureTextEntry = true
+        textField.textAlignment = .center
+        textField.borderStyle = .none
+        textField.layer.cornerRadius = 28
+        textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
     private var mainStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -102,6 +116,8 @@ class RegisterViewController: UIViewController {
         view.addSubview(backgroundImageView)
         view.addSubview(mainStackView)
         
+        passwordStackView.addArrangedSubview(passwordTextField)
+        
         mainStackView.addArrangedSubview(logoImageView)
         mainStackView.addArrangedSubview(fullNameTextField)
         mainStackView.addArrangedSubview(phoneNumberTextField)
@@ -121,7 +137,8 @@ class RegisterViewController: UIViewController {
             logoImageView.heightAnchor.constraint(equalToConstant: 220),
             fullNameTextField.heightAnchor.constraint(equalToConstant: 60),
             phoneNumberTextField.heightAnchor.constraint(equalToConstant: 60),
-            emailTextField.heightAnchor.constraint(equalToConstant: 60)
+            emailTextField.heightAnchor.constraint(equalToConstant: 60),
+            passwordTextField.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
 }
