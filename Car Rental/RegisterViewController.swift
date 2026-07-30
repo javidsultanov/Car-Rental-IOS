@@ -52,6 +52,20 @@ class RegisterViewController: UIViewController {
         return textField
     }()
     
+    private var emailTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Email"
+        textField.backgroundColor = .white
+        textField.keyboardType = .emailAddress
+        textField.autocapitalizationType = .none
+        textField.borderStyle = .none
+        textField.layer.cornerRadius = 28
+        textField.textAlignment = .center
+        textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
     private var mainStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -82,6 +96,7 @@ class RegisterViewController: UIViewController {
         mainStackView.addArrangedSubview(logoImageView)
         mainStackView.addArrangedSubview(fullNameTextField)
         mainStackView.addArrangedSubview(phoneNumberTextField)
+        mainStackView.addArrangedSubview(emailTextField)
         
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -95,7 +110,8 @@ class RegisterViewController: UIViewController {
             
             logoImageView.heightAnchor.constraint(equalToConstant: 220),
             fullNameTextField.heightAnchor.constraint(equalToConstant: 60),
-            phoneNumberTextField.heightAnchor.constraint(equalToConstant: 60)
+            phoneNumberTextField.heightAnchor.constraint(equalToConstant: 60),
+            emailTextField.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
 }
