@@ -39,6 +39,19 @@ class RegisterViewController: UIViewController {
         return textField
     }()
     
+    private var phoneNumberTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Phone Number"
+        textField.backgroundColor = .white
+        textField.keyboardType = .numberPad
+        textField.borderStyle = .none
+        textField.layer.cornerRadius = 28
+        textField.textAlignment = .center
+        textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
     private var mainStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -58,6 +71,8 @@ class RegisterViewController: UIViewController {
     private func configureUI() {
         title = "Register"
         view.backgroundColor = .systemBlue
+        
+        phoneNumberTextField.delegate = self
     }
     
     private func configureConstraints() {
@@ -66,6 +81,7 @@ class RegisterViewController: UIViewController {
         
         mainStackView.addArrangedSubview(logoImageView)
         mainStackView.addArrangedSubview(fullNameTextField)
+        mainStackView.addArrangedSubview(phoneNumberTextField)
         
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -78,7 +94,16 @@ class RegisterViewController: UIViewController {
             mainStackView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.88),
             
             logoImageView.heightAnchor.constraint(equalToConstant: 220),
-            fullNameTextField.heightAnchor.constraint(equalToConstant: 60)
+            fullNameTextField.heightAnchor.constraint(equalToConstant: 60),
+            phoneNumberTextField.heightAnchor.constraint(equalToConstant: 60)
         ])
+    }
+}
+
+extension RegisterViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersInRanges ranges: [NSValue], replacementString string: String) -> Bool {
+        let allowedCharacters = CharacterSet.decimalDigits
+        let characterSet = CharacterSet(charactersIn: string)
+        return allowedCharacters.isSuperset(of: characterSet)
     }
 }
