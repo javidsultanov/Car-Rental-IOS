@@ -63,6 +63,13 @@ class LoginViewController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
+    
+    private var passwordSwitchButton: UISwitch = {
+        let button = UISwitch()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+        return button
+    }()
 
     private var mainStackView: UIStackView = {
         let view = UIStackView()
@@ -92,6 +99,8 @@ class LoginViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = .systemBlue
         title = "Login"
+        
+        passwordSwitchButton.addTarget(self, action: #selector(switchButtonTapped), for: .touchUpInside)
     }
     
     private func configureConstraints() {
@@ -99,6 +108,7 @@ class LoginViewController: UIViewController {
         view.addSubview(mainStackView)
         
         passwordStackView.addArrangedSubview(passwordTextField)
+        passwordStackView.addArrangedSubview(passwordSwitchButton)
         
         mainStackView.addArrangedSubview(logoImageView)
         mainStackView.addArrangedSubview(titleLabel)
@@ -119,5 +129,9 @@ class LoginViewController: UIViewController {
             fullNameTextField.heightAnchor.constraint(equalToConstant: 60),
             passwordTextField.heightAnchor.constraint(equalToConstant: 60)
         ])
+    }
+    
+    @objc private func switchButtonTapped() {
+        passwordTextField.isSecureTextEntry = !passwordSwitchButton.isOn
     }
 }
