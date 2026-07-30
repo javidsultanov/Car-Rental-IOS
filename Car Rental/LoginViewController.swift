@@ -45,6 +45,21 @@ class LoginViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    private var fullNameTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Full Name"
+        textField.backgroundColor = .white
+        textField.borderStyle = .none
+        textField.autocapitalizationType = .words
+        textField.textAlignment = .center
+        textField.layer.cornerRadius = 28
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.white.cgColor
+        textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +79,7 @@ class LoginViewController: UIViewController {
         
         mainStackView.addArrangedSubview(logoImageView)
         mainStackView.addArrangedSubview(titleLabel)
+        mainStackView.addArrangedSubview(fullNameTextField)
         
         NSLayoutConstraint.activate([
             backgroungImageView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -75,7 +91,8 @@ class LoginViewController: UIViewController {
             mainStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             mainStackView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.88),
             
-            logoImageView.heightAnchor.constraint(equalToConstant: 144)
+            logoImageView.heightAnchor.constraint(equalToConstant: 144),
+            fullNameTextField.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
 }
