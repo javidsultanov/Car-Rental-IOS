@@ -7,6 +7,8 @@
 
 import UIKit
 
+//MARK: Register View
+
 class RegisterViewController: UIViewController {
     private var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
@@ -130,6 +132,8 @@ class RegisterViewController: UIViewController {
         super.touchesBegan(touches, with: event)
     }
     
+    //MARK: View Functions
+    
     private func configureUI() {
         title = "Register"
         view.backgroundColor = .systemBlue
@@ -210,6 +214,8 @@ class RegisterViewController: UIViewController {
         }
     }
 }
+
+//MARK: Register Delegate
 
 extension RegisterViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersInRanges ranges: [NSValue], replacementString string: String) -> Bool {

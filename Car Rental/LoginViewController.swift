@@ -7,6 +7,8 @@
 
 import UIKit
 
+//MARK: Login View
+
 class LoginViewController: UIViewController {
     private var backgroungImageView: UIImageView = {
         let imageView = UIImageView()
@@ -111,6 +113,8 @@ class LoginViewController: UIViewController {
         view.endEditing(true)
         super.touchesBegan(touches, with: event)
     }
+    
+    //MARK: View Functions
     
     private func configureUI() {
         view.backgroundColor = .systemBlue
