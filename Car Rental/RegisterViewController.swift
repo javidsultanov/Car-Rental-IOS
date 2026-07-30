@@ -26,6 +26,19 @@ class RegisterViewController: UIViewController {
         return imageView
     }()
     
+    private var fullNameTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Full Name"
+        textField.backgroundColor = .white
+        textField.borderStyle = .none
+        textField.autocapitalizationType = .words
+        textField.layer.cornerRadius = 28
+        textField.textAlignment = .center
+        textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
     private var mainStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -52,6 +65,7 @@ class RegisterViewController: UIViewController {
         view.addSubview(mainStackView)
         
         mainStackView.addArrangedSubview(logoImageView)
+        mainStackView.addArrangedSubview(fullNameTextField)
         
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -63,7 +77,8 @@ class RegisterViewController: UIViewController {
             mainStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             mainStackView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.88),
             
-            logoImageView.heightAnchor.constraint(equalToConstant: 220)
+            logoImageView.heightAnchor.constraint(equalToConstant: 220),
+            fullNameTextField.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
 }
