@@ -17,6 +17,15 @@ class RegisterViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+    
+    private var mainStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 16
+        view.distribution = .equalSpacing
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +41,7 @@ class RegisterViewController: UIViewController {
     
     private func configureConstraints() {
         view.addSubview(backgroundImageView)
+        view.addSubview(mainStackView)
         
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
