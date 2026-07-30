@@ -20,8 +20,7 @@ class LoginViewController: UIViewController {
     
     private var logoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person")
-        imageView.tintColor = .black
+        imageView.image = UIImage(named: "driveit_logo")
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -125,7 +124,7 @@ class LoginViewController: UIViewController {
             mainStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             mainStackView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.88),
             
-            logoImageView.heightAnchor.constraint(equalToConstant: 144),
+            logoImageView.heightAnchor.constraint(equalToConstant: 160),
             fullNameTextField.heightAnchor.constraint(equalToConstant: 60),
             passwordTextField.heightAnchor.constraint(equalToConstant: 60)
         ])
