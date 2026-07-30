@@ -186,6 +186,11 @@ class RegisterViewController: UIViewController {
                                  Email: \(userInfo.email)
                                  Password: \(userInfo.password)
                                  """)
+            
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let _ = windowScene.delegate as? SceneDelegate {
+                UserDefaults.standard.set(true, forKey: "isRegistered")
+            }
         } else {
             showDefaultAlert(title: "Registration Incomplete!",
                              message: "All gaps must be filled")
