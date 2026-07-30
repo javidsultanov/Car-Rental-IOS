@@ -18,6 +18,15 @@ class LoginViewController: UIViewController {
         return imageView
     }()
     
+    private var logoImageView: UIImageView = {
+            let imageView = UIImageView()
+            imageView.image = UIImage(systemName: "person")
+            imageView.tintColor = .black
+            imageView.contentMode = .scaleAspectFit
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            return imageView
+        }()
+    
     private var mainStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -43,11 +52,19 @@ class LoginViewController: UIViewController {
         view.addSubview(backgroungImageView)
         view.addSubview(mainStackView)
         
+        mainStackView.addArrangedSubview(logoImageView)
+        
         NSLayoutConstraint.activate([
             backgroungImageView.topAnchor.constraint(equalTo: view.topAnchor),
             backgroungImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroungImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroungImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            mainStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            mainStackView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.88),
+            
+            logoImageView.heightAnchor.constraint(equalToConstant: 144)
         ])
     }
 }
