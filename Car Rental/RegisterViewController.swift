@@ -125,6 +125,11 @@ class RegisterViewController: UIViewController {
         fileManager.fetchData()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+    }
+    
     private func configureUI() {
         title = "Register"
         view.backgroundColor = .systemBlue
