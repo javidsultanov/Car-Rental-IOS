@@ -29,7 +29,7 @@ class LoginViewController: UIViewController {
     private var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "driveit"
-        label.textColor = .black
+        label.textColor = .white
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 44, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
