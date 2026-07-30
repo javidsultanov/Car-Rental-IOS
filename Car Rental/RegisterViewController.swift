@@ -129,6 +129,7 @@ class RegisterViewController: UIViewController {
         phoneNumberTextField.delegate = self
         
         passwordSwitchButton.addTarget(self, action: #selector(switchButtonTapped), for: .touchUpInside)
+        registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
     }
     
     private func configureConstraints() {
@@ -166,6 +167,29 @@ class RegisterViewController: UIViewController {
     
     @objc private func switchButtonTapped() {
         passwordTextField.isSecureTextEntry = !passwordSwitchButton.isOn
+    }
+    
+    @objc private func registerButtonTapped() {
+        if let writtenFullName = fullNameTextField.text, !writtenFullName.isEmpty,
+           let writtenPhoneNumber = phoneNumberTextField.text, !writtenPhoneNumber.isEmpty,
+           let writtenEmail = emailTextField.text, !writtenEmail.isEmpty,
+           let writtenPassword = passwordTextField.text, !writtenPassword.isEmpty {
+            let userInfo: User = .init(fullName: writtenFullName,
+                                       phoneNumber: writtenPhoneNumber,
+                                       email: writtenEmail,
+                                       password: writtenPassword)
+            
+            showDefaultAlert(title: "Registration Complete!",
+                             message: """
+                                 Full Name: \(userInfo.fullName)
+                                 Phone Number: \(userInfo.phoneNumber)
+                                 Email: \(userInfo.email)
+                                 Password: \(userInfo.password)
+                                 """)
+        } else {
+            showDefaultAlert(title: "Registration Incomplete!",
+                             message: "All gaps must be filled")
+        }
     }
 }
 
