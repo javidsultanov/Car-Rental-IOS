@@ -80,6 +80,13 @@ class RegisterViewController: UIViewController {
         return textField
     }()
     
+    private var passwordSwitchButton: UISwitch = {
+        let button = UISwitch()
+        button.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     private var mainStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -110,6 +117,8 @@ class RegisterViewController: UIViewController {
         view.backgroundColor = .systemBlue
         
         phoneNumberTextField.delegate = self
+        
+        passwordSwitchButton.addTarget(self, action: #selector(switchButtonTapped), for: .touchUpInside)
     }
     
     private func configureConstraints() {
@@ -117,6 +126,7 @@ class RegisterViewController: UIViewController {
         view.addSubview(mainStackView)
         
         passwordStackView.addArrangedSubview(passwordTextField)
+        passwordStackView.addArrangedSubview(passwordSwitchButton)
         
         mainStackView.addArrangedSubview(logoImageView)
         mainStackView.addArrangedSubview(fullNameTextField)
@@ -140,6 +150,10 @@ class RegisterViewController: UIViewController {
             emailTextField.heightAnchor.constraint(equalToConstant: 60),
             passwordTextField.heightAnchor.constraint(equalToConstant: 60)
         ])
+    }
+    
+    @objc private func switchButtonTapped() {
+        passwordTextField.isSecureTextEntry = !passwordSwitchButton.isOn
     }
 }
 
