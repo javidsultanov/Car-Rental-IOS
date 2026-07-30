@@ -18,6 +18,14 @@ class RegisterViewController: UIViewController {
         return imageView
     }()
     
+    private var logoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "driveit_logo")
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     private var mainStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -43,11 +51,19 @@ class RegisterViewController: UIViewController {
         view.addSubview(backgroundImageView)
         view.addSubview(mainStackView)
         
+        mainStackView.addArrangedSubview(logoImageView)
+        
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
             backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            mainStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            mainStackView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.88),
+            
+            logoImageView.heightAnchor.constraint(equalToConstant: 220)
         ])
     }
 }
