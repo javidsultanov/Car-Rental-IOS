@@ -26,16 +26,6 @@ class LoginViewController: UIViewController {
         return imageView
         }()
     
-    private var titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "driveit"
-        label.textColor = .white
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 44, weight: .bold)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     private var fullNameTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Full Name"
@@ -120,7 +110,6 @@ class LoginViewController: UIViewController {
         passwordStackView.addArrangedSubview(passwordSwitchButton)
         
         mainStackView.addArrangedSubview(logoImageView)
-        mainStackView.addArrangedSubview(titleLabel)
         mainStackView.addArrangedSubview(fullNameTextField)
         mainStackView.addArrangedSubview(passwordStackView)
         mainStackView.addArrangedSubview(loginButton)
@@ -131,11 +120,11 @@ class LoginViewController: UIViewController {
             backgroungImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroungImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             mainStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             mainStackView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.88),
             
-            logoImageView.heightAnchor.constraint(equalToConstant: 160),
+            logoImageView.heightAnchor.constraint(equalToConstant: 220),
             fullNameTextField.heightAnchor.constraint(equalToConstant: 60),
             passwordTextField.heightAnchor.constraint(equalToConstant: 60),
             loginButton.heightAnchor.constraint(equalToConstant: 60)
