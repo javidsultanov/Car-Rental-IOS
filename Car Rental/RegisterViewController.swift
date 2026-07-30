@@ -74,6 +74,15 @@ class RegisterViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    private var passwordStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.spacing = 4
+        view.alignment = .center
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,6 +106,7 @@ class RegisterViewController: UIViewController {
         mainStackView.addArrangedSubview(fullNameTextField)
         mainStackView.addArrangedSubview(phoneNumberTextField)
         mainStackView.addArrangedSubview(emailTextField)
+        mainStackView.addArrangedSubview(passwordStackView)
         
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
