@@ -37,15 +37,6 @@ class LoginViewController: UIViewController {
         return label
     }()
     
-    private var mainStackView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .vertical
-        view.spacing = 16
-        view.distribution = .equalSpacing
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     private var fullNameTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Full Name"
@@ -61,6 +52,24 @@ class LoginViewController: UIViewController {
         return textField
     }()
 
+    private var mainStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 16
+        view.distribution = .equalSpacing
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private var passwordStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.spacing = 4
+        view.alignment = .center
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
