@@ -97,11 +97,14 @@ class LoginViewController: UIViewController {
         return view
     }()
     
+    private var fileManager = UserFileManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
         configureConstraints()
+        fileManager.fetchData()
     }
     
     private func configureUI() {
@@ -109,6 +112,7 @@ class LoginViewController: UIViewController {
         title = "Log In"
         
         passwordSwitchButton.addTarget(self, action: #selector(switchButtonTapped), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
     }
     
@@ -144,6 +148,23 @@ class LoginViewController: UIViewController {
     
     @objc private func switchButtonTapped() {
         passwordTextField.isSecureTextEntry = !passwordSwitchButton.isOn
+    }
+    
+    @objc private func loginButtonTapped() {
+        if let writtenFullName = fullNameTextField.text, !writtenFullName.isEmpty,
+           let writtenPassword = passwordTextField.text, !writtenPassword.isEmpty {
+               let savedUser = fileManager.users.contains(where: { $0.fullName == writtenFullName && $0.password == writtenPassword })
+               
+               if savedUser {
+                   
+               } else {
+                   showDefaultAlert(title: "Login Failed!",
+                                    message: "Invalid Full Name or Password")
+               }
+           } else {
+               showDefaultAlert(title: "Login Incomplete!",
+                                message: "All gaps must be filled")
+           }
     }
     
     @objc private func registerButtonTapped() {

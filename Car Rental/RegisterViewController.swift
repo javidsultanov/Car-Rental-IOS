@@ -114,12 +114,15 @@ class RegisterViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    private var fileManager = UserFileManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
         configureConstraints()
+        fileManager.fetchData()
     }
     
     private func configureUI() {
@@ -179,17 +182,22 @@ class RegisterViewController: UIViewController {
                                        email: writtenEmail,
                                        password: writtenPassword)
             
-            showDefaultAlert(title: "Registration Complete!",
-                             message: """
-                                 Full Name: \(userInfo.fullName)
-                                 Phone Number: \(userInfo.phoneNumber)
-                                 Email: \(userInfo.email)
-                                 Password: \(userInfo.password)
-                                 """)
+            print("""
+                Registration Complete!
+                
+                Full Name: \(userInfo.fullName)
+                Phone Number: \(userInfo.phoneNumber)
+                Email: \(userInfo.email)
+                Password: \(userInfo.password)
+                """)
+            
+            fileManager.users.append(userInfo)
+            fileManager.saveUser()
             
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let _ = windowScene.delegate as? SceneDelegate {
+               let SceneDelegate = windowScene.delegate as? SceneDelegate {
                 UserDefaults.standard.set(true, forKey: "isRegistered")
+                SceneDelegate.setLoginAsRoot()
             }
         } else {
             showDefaultAlert(title: "Registration Incomplete!",
