@@ -17,6 +17,15 @@ class LoginViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+    
+    private var mainStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 16
+        view.distribution = .equalSpacing
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,12 +41,13 @@ class LoginViewController: UIViewController {
     
     private func configureConstraints() {
         view.addSubview(backgroungImageView)
+        view.addSubview(mainStackView)
         
         NSLayoutConstraint.activate([
             backgroungImageView.topAnchor.constraint(equalTo: view.topAnchor),
             backgroungImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroungImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroungImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            backgroungImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
 }
