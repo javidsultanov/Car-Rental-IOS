@@ -69,6 +69,16 @@ class LoginViewController: UIViewController {
         button.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
         return button
     }()
+    
+    private var loginButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("LOG IN", for: .normal)
+        button.backgroundColor = .black
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 28
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 
     private var mainStackView: UIStackView = {
         let view = UIStackView()
@@ -97,7 +107,7 @@ class LoginViewController: UIViewController {
     
     private func configureUI() {
         view.backgroundColor = .systemBlue
-        title = "Login"
+        title = "Log In"
         
         passwordSwitchButton.addTarget(self, action: #selector(switchButtonTapped), for: .touchUpInside)
     }
@@ -113,6 +123,7 @@ class LoginViewController: UIViewController {
         mainStackView.addArrangedSubview(titleLabel)
         mainStackView.addArrangedSubview(fullNameTextField)
         mainStackView.addArrangedSubview(passwordStackView)
+        mainStackView.addArrangedSubview(loginButton)
         
         NSLayoutConstraint.activate([
             backgroungImageView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -126,7 +137,8 @@ class LoginViewController: UIViewController {
             
             logoImageView.heightAnchor.constraint(equalToConstant: 160),
             fullNameTextField.heightAnchor.constraint(equalToConstant: 60),
-            passwordTextField.heightAnchor.constraint(equalToConstant: 60)
+            passwordTextField.heightAnchor.constraint(equalToConstant: 60),
+            loginButton.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
     
