@@ -87,6 +87,16 @@ class RegisterViewController: UIViewController {
         return button
     }()
     
+    private var registerButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("REGISTER", for: .normal)
+        button.backgroundColor = .black
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 28
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     private var mainStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -133,6 +143,7 @@ class RegisterViewController: UIViewController {
         mainStackView.addArrangedSubview(phoneNumberTextField)
         mainStackView.addArrangedSubview(emailTextField)
         mainStackView.addArrangedSubview(passwordStackView)
+        mainStackView.addArrangedSubview(registerButton)
         
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -148,7 +159,8 @@ class RegisterViewController: UIViewController {
             fullNameTextField.heightAnchor.constraint(equalToConstant: 60),
             phoneNumberTextField.heightAnchor.constraint(equalToConstant: 60),
             emailTextField.heightAnchor.constraint(equalToConstant: 60),
-            passwordTextField.heightAnchor.constraint(equalToConstant: 60)
+            passwordTextField.heightAnchor.constraint(equalToConstant: 60),
+            registerButton.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
     
