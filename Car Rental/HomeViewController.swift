@@ -8,11 +8,13 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+    private var fileManager = CarFileManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
+        fileManager.getCarItems()
     }
     
     private func configureUI() {
