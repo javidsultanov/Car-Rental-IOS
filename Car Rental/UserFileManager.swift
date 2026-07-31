@@ -8,7 +8,7 @@
 import Foundation
 
 class UserFileManager {
-    var users:[User] = []
+    var users: [User] = []
     
     func getFilePath() -> URL {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
