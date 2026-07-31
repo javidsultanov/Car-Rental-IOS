@@ -1,0 +1,37 @@
+[
+    {
+        "carImage": "car_1",
+        "carBrand": "Kia",
+        "carModel": "Rio",
+        "carCategory": "Standard",
+        "carEngine": "4-Cyl, 1.6 Liter",
+        "carPrice": 350.0
+    },
+    
+    {
+        "carImage": "car_2",
+        "carBrand": "Mercedez-Benz",
+        "carModel": "C-Class",
+        "carCategory": "Prestige",
+        "carEngine": "4-Cyl, 2.0 Liter",
+        "carPrice": 600.0
+    },
+    
+    {
+        "carImage": "car_3",
+        "carBrand": "Jeep",
+        "carModel": "Grand Cherokee",
+        "carCategory": "SUV",
+        "carEngine": "V6 3.6 Liter",
+        "carPrice": 500.0
+    },
+    
+    {
+        "carImage": "car_4",
+        "carBrand": "Toyota",
+        "carModel": "Yaris iA",
+        "carCategory": "Standard",
+        "carEngine": "4-Cyl 1.5 Liter",
+        "carPrice": 300.0
+    }
+]
