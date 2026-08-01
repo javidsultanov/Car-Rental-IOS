@@ -18,15 +18,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        if UserDefaults.standard.bool(forKey: "isRegistered") {
-            setLoginAsRoot()
+        if UserDefaults.standard.bool(forKey: "isLoggedIn") {
+            setHomeAsRoot()
         } else {
-            setRegisterAsRoot()
+            setLoginAsRoot()
         }
     }
     
-    func setRegisterAsRoot() {
-        window?.rootViewController = UINavigationController(rootViewController: RegisterController())
+    func setHomeAsRoot() {
+        window?.rootViewController = UINavigationController(rootViewController: HomeController())
         window?.makeKeyAndVisible()
     }
     

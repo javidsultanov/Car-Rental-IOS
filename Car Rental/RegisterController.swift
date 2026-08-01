@@ -205,7 +205,6 @@ class RegisterController: UIViewController {
             
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                let SceneDelegate = windowScene.delegate as? SceneDelegate {
-                UserDefaults.standard.set(true, forKey: "isRegistered")
                 SceneDelegate.setLoginAsRoot()
             }
         } else {

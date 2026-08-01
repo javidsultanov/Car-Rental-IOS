@@ -165,6 +165,8 @@ class LoginController: UIViewController {
                let savedUser = fileManager.users.contains(where: { $0.fullName == writtenFullName && $0.password == writtenPassword })
                
                if savedUser {
+                   UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                   
                    let controller = HomeController()
                    navigationController?.setViewControllers([controller], animated: true)
                } else {
