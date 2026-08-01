@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class HomeController: UIViewController {
     private var fileManager = CarFileManager()
 
     override func viewDidLoad() {

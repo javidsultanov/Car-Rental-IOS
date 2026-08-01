@@ -26,12 +26,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func setRegisterAsRoot() {
-        window?.rootViewController = UINavigationController(rootViewController: RegisterViewController())
+        window?.rootViewController = UINavigationController(rootViewController: RegisterController())
         window?.makeKeyAndVisible()
     }
     
     func setLoginAsRoot() {
-        window?.rootViewController = UINavigationController(rootViewController: LoginViewController())
+        window?.rootViewController = UINavigationController(rootViewController: LoginController())
         window?.makeKeyAndVisible()
     }
 

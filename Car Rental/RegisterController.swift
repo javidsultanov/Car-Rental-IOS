@@ -9,7 +9,7 @@ import UIKit
 
 //MARK: Register View
 
-class RegisterViewController: UIViewController {
+class RegisterController: UIViewController {
     private var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "cars")
@@ -217,7 +217,7 @@ class RegisterViewController: UIViewController {
 
 //MARK: Register Delegate
 
-extension RegisterViewController: UITextFieldDelegate {
+extension RegisterController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersInRanges ranges: [NSValue], replacementString string: String) -> Bool {
         let allowedCharacters = CharacterSet.decimalDigits
         let characterSet = CharacterSet(charactersIn: string)

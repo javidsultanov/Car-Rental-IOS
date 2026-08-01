@@ -9,7 +9,7 @@ import UIKit
 
 //MARK: Login View
 
-class LoginViewController: UIViewController {
+class LoginController: UIViewController {
     private var backgroungImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "cars")
@@ -165,7 +165,7 @@ class LoginViewController: UIViewController {
                let savedUser = fileManager.users.contains(where: { $0.fullName == writtenFullName && $0.password == writtenPassword })
                
                if savedUser {
-                   let controller = HomeViewController()
+                   let controller = HomeController()
                    navigationController?.setViewControllers([controller], animated: true)
                } else {
                    showDefaultAlert(title: "Login Failed!",
@@ -178,7 +178,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc private func registerButtonTapped() {
-        let controller = RegisterViewController()
+        let controller = RegisterController()
         navigationController?.show(controller, sender: self)
     }
 }
