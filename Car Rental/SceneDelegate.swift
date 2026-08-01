@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func setHomeAsRoot() {
-        window?.rootViewController = UINavigationController(rootViewController: HomeController())
+        window?.rootViewController = TabBarController()
         window?.makeKeyAndVisible()
     }
     

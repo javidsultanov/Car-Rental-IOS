@@ -11,5 +11,12 @@ class VehiclesController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configureUI()
+    }
+    
+    private func configureUI() {
+        view.backgroundColor = .systemBackground
+        navigationItem.title = "Car Rental"
     }
 }

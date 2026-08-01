@@ -167,8 +167,10 @@ class LoginController: UIViewController {
                if savedUser {
                    UserDefaults.standard.set(true, forKey: "isLoggedIn")
                    
-                   let controller = HomeController()
-                   navigationController?.setViewControllers([controller], animated: true)
+                   if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                      let sceneDelegate = windowScene.delegate as? SceneDelegate {
+                       sceneDelegate.setHomeAsRoot()
+                   }
                } else {
                    showDefaultAlert(title: "Login Failed!",
                                     message: "Invalid Full Name or Password")
