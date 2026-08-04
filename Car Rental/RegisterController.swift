@@ -11,75 +11,75 @@ import UIKit
 
 class RegisterController: UIViewController {
     private var backgroundImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "cars")
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.alpha = 0.2
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
+        let image = UIImageView()
+        image.image = UIImage(named: "cars")
+        image.contentMode = .scaleAspectFill
+        image.clipsToBounds = true
+        image.alpha = 0.2
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
     }()
     
     private var logoImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "driveit_logo")
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
+        let image = UIImageView()
+        image.image = UIImage(named: "driveit_logo")
+        image.contentMode = .scaleAspectFit
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
     }()
     
     private var fullNameTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Full Name"
-        textField.backgroundColor = .white
-        textField.borderStyle = .none
-        textField.autocapitalizationType = .words
-        textField.layer.cornerRadius = 28
-        textField.textAlignment = .center
-        textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
+        let text = UITextField()
+        text.placeholder = "Full Name"
+        text.backgroundColor = .white
+        text.borderStyle = .none
+        text.autocapitalizationType = .words
+        text.layer.cornerRadius = 28
+        text.textAlignment = .center
+        text.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        text.translatesAutoresizingMaskIntoConstraints = false
+        return text
     }()
     
     private var phoneNumberTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Phone Number"
-        textField.backgroundColor = .white
-        textField.keyboardType = .numberPad
-        textField.borderStyle = .none
-        textField.layer.cornerRadius = 28
-        textField.textAlignment = .center
-        textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
+        let text = UITextField()
+        text.placeholder = "Phone Number"
+        text.backgroundColor = .white
+        text.keyboardType = .numberPad
+        text.borderStyle = .none
+        text.layer.cornerRadius = 28
+        text.textAlignment = .center
+        text.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        text.translatesAutoresizingMaskIntoConstraints = false
+        return text
     }()
     
     private var emailTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Email"
-        textField.backgroundColor = .white
-        textField.keyboardType = .emailAddress
-        textField.autocapitalizationType = .none
-        textField.borderStyle = .none
-        textField.layer.cornerRadius = 28
-        textField.textAlignment = .center
-        textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
+        let text = UITextField()
+        text.placeholder = "Email"
+        text.backgroundColor = .white
+        text.keyboardType = .emailAddress
+        text.autocapitalizationType = .none
+        text.borderStyle = .none
+        text.layer.cornerRadius = 28
+        text.textAlignment = .center
+        text.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        text.translatesAutoresizingMaskIntoConstraints = false
+        return text
     }()
     
     private var passwordTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Password"
-        textField.backgroundColor = .white
-        textField.autocapitalizationType = .none
-        textField.isSecureTextEntry = true
-        textField.textAlignment = .center
-        textField.borderStyle = .none
-        textField.layer.cornerRadius = 28
-        textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
+        let text = UITextField()
+        text.placeholder = "Password"
+        text.backgroundColor = .white
+        text.autocapitalizationType = .none
+        text.isSecureTextEntry = true
+        text.textAlignment = .center
+        text.borderStyle = .none
+        text.layer.cornerRadius = 28
+        text.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        text.translatesAutoresizingMaskIntoConstraints = false
+        return text
     }()
     
     private var passwordSwitchButton: UISwitch = {

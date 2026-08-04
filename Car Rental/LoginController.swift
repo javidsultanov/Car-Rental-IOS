@@ -11,48 +11,48 @@ import UIKit
 
 class LoginController: UIViewController {
     private var backgroungImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "cars")
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.alpha = 0.2
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
+        let image = UIImageView()
+        image.image = UIImage(named: "cars")
+        image.contentMode = .scaleAspectFill
+        image.clipsToBounds = true
+        image.alpha = 0.2
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
     }()
     
     private var logoImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "driveit_logo")
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
+        let image = UIImageView()
+        image.image = UIImage(named: "driveit_logo")
+        image.contentMode = .scaleAspectFit
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
         }()
     
     private var fullNameTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Full Name"
-        textField.backgroundColor = .white
-        textField.borderStyle = .none
-        textField.autocapitalizationType = .words
-        textField.textAlignment = .center
-        textField.layer.cornerRadius = 28
-        textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
+        let text = UITextField()
+        text.placeholder = "Full Name"
+        text.backgroundColor = .white
+        text.borderStyle = .none
+        text.autocapitalizationType = .words
+        text.textAlignment = .center
+        text.layer.cornerRadius = 28
+        text.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        text.translatesAutoresizingMaskIntoConstraints = false
+        return text
     }()
     
     private var passwordTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Password"
-        textField.backgroundColor = .white
-        textField.borderStyle = .none
-        textField.autocapitalizationType = .none
-        textField.textAlignment = .center
-        textField.layer.cornerRadius = 28
-        textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        textField.isSecureTextEntry = true
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
+        let text = UITextField()
+        text.placeholder = "Password"
+        text.backgroundColor = .white
+        text.borderStyle = .none
+        text.autocapitalizationType = .none
+        text.textAlignment = .center
+        text.layer.cornerRadius = 28
+        text.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        text.isSecureTextEntry = true
+        text.translatesAutoresizingMaskIntoConstraints = false
+        return text
     }()
     
     private var passwordSwitchButton: UISwitch = {
