@@ -7,6 +7,8 @@
 
 import UIKit
 
+//MARK: Search View
+
 class SearchController: UIViewController {
     private var carCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -39,6 +41,8 @@ class SearchController: UIViewController {
         fileManager.getCarItems()
         carCollectionView.reloadData()
     }
+    
+    //MARK: View Functions
     
     private func configureUI() {
         view.backgroundColor = .secondarySystemBackground

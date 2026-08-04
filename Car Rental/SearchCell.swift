@@ -7,6 +7,8 @@
 
 import UIKit
 
+//MARK: Search Cell
+
 class SearchCell: UICollectionViewCell {
     private var carImageView: UIImageView = {
         let image = UIImageView()
@@ -71,6 +73,8 @@ class SearchCell: UICollectionViewCell {
         configureUI()
         configureConstraints()
     }
+    
+    //MARK: Cell Functions
     
     private func configureUI() {
         contentView.layer.cornerRadius = 28

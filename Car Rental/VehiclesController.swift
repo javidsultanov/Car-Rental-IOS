@@ -7,6 +7,8 @@
 
 import UIKit
 
+//MARK: Vehicles View
+
 class VehiclesController: UIViewController {
     private var carCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -91,6 +93,8 @@ class VehiclesController: UIViewController {
         carCollectionHeightConstant.constant = carCollectionView.contentSize.height
     }
     
+    //MARK: View Functions
+    
     private func configureUI() {
         view.backgroundColor = .secondarySystemBackground
         navigationItem.title = "Car Rental"
@@ -139,6 +143,8 @@ class VehiclesController: UIViewController {
     }
 }
 
+//  MARK: Vehicles DataSource | Delegate
+
 extension VehiclesController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == carCategoryCollectionView {
@@ -166,6 +172,8 @@ extension VehiclesController: UICollectionViewDataSource {
         return cell
     }
 }
+
+//MARK: Vehicles FlowLayout
 
 extension VehiclesController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
