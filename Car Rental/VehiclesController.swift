@@ -65,20 +65,19 @@ class VehiclesController: UIViewController {
     
     private var fileManager = CarFileManager()
     
-    private var selectedCarCategoryIndex: Int?
+    private var filteredCars: [Car] = []
+    
+    private var selectedCarCategoryIndex = 0
     
     private var carCategories: [CarCategory] = [.init(carImage: "car_1",
                                                       carCategory: "Standard",
-                                                      carCount: 11),
+                                                      carCount: 0),
                                                 .init(carImage: "car_2",
                                                       carCategory: "Prestige",
-                                                      carCount: 22),
+                                                      carCount: 0),
                                                 .init(carImage: "car_3",
                                                       carCategory: "SUV",
-                                                      carCount: 33),
-                                                .init(carImage: "car_4",
-                                                      carCategory: "Standard",
-                                                      carCount: 44)]
+                                                      carCount: 0)]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,11 +85,9 @@ class VehiclesController: UIViewController {
         configureUI()
         configureConstraints()
         fileManager.getCarItems()
-        carCategoryCollectionView.reloadData()
+        updateCategoryCounts()
+        filterCars()
         carCollectionView.reloadData()
-        
-        carCollectionView.layoutIfNeeded()
-        carCollectionHeightConstant.constant = carCollectionView.contentSize.height
     }
     
     //MARK: View Functions
@@ -141,6 +138,21 @@ class VehiclesController: UIViewController {
             carCollectionView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor)
         ])
     }
+    
+    private func updateCategoryCounts() {
+        for index in carCategories.indices {
+            carCategories[index].carCount = fileManager.cars.filter({ $0.carCategory == carCategories[index].carCategory }).count
+        }
+    }
+    
+    private func filterCars() {
+        filteredCars = fileManager.cars.filter({ $0.carCategory == carCategories[selectedCarCategoryIndex].carCategory })
+        
+        carCollectionView.reloadData()
+        
+        carCollectionView.layoutIfNeeded()
+        carCollectionHeightConstant.constant = carCollectionView.contentSize.height
+    }
 }
 
 //  MARK: Vehicles DataSource | Delegate
@@ -150,7 +162,7 @@ extension VehiclesController: UICollectionViewDataSource {
         if collectionView == carCategoryCollectionView {
             return carCategories.count
         } else {
-            return fileManager.cars.count
+            return filteredCars.count
         }
     }
     
@@ -168,7 +180,7 @@ extension VehiclesController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.configureCell(car: fileManager.cars[indexPath.item])
+        cell.configureCell(car: filteredCars[indexPath.item])
         return cell
     }
 }
@@ -188,7 +200,9 @@ extension VehiclesController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == carCategoryCollectionView {
             selectedCarCategoryIndex = indexPath.item
+            
             carCategoryCollectionView.reloadData()
+            filterCars()
         }
     }
 }
