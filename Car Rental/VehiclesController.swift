@@ -18,51 +18,13 @@ class VehiclesController: UIViewController {
         
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.register(VehiclesCell.self, forCellWithReuseIdentifier: "VehiclesCell")
+        view.register(CarCategoryHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "CarCategoryHeader")
         view.backgroundColor = .secondarySystemBackground
-        view.isScrollEnabled = false
+        view.isScrollEnabled = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    private var carCategoryCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 16
-        layout.minimumInteritemSpacing = 16
-        
-        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.register(CarCategoryCell.self, forCellWithReuseIdentifier: "CarCategoryCell")
-        view.backgroundColor = .secondarySystemBackground
-        view.showsHorizontalScrollIndicator = false
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private var searchBar: UISearchBar = {
-        let bar = UISearchBar()
-        bar.placeholder = "Search for a car"
-        bar.searchBarStyle = .minimal
-        bar.translatesAutoresizingMaskIntoConstraints = false
-        return bar
-    }()
-    
-    private var vehiclesLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Available Vehicles"
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private var scrollView: UIScrollView = {
-        let view = UIScrollView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private var carCollectionHeightConstant: NSLayoutConstraint!
-    
+                
     private var fileManager = CarFileManager()
     
     private var filteredCars: [Car] = []
@@ -87,7 +49,6 @@ class VehiclesController: UIViewController {
         fileManager.getCarItems()
         updateCategoryCounts()
         filterCars()
-        carCollectionView.reloadData()
     }
     
     //MARK: View Functions
@@ -98,44 +59,16 @@ class VehiclesController: UIViewController {
         
         carCollectionView.delegate = self
         carCollectionView.dataSource = self
-        
-        carCategoryCollectionView.dataSource = self
-        carCategoryCollectionView.delegate = self
-        }
+    }
     
     private func configureConstraints() {
-        view.addSubview(scrollView)
-        
-        scrollView.addSubview(searchBar)
-        scrollView.addSubview(carCategoryCollectionView)
-        scrollView.addSubview(vehiclesLabel)
-        scrollView.addSubview(carCollectionView)
-        
-        carCollectionHeightConstant = carCollectionView.heightAnchor.constraint(equalToConstant: 0)
+        view.addSubview(carCollectionView)
         
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            
-            searchBar.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 8),
-            searchBar.centerXAnchor.constraint(equalTo: scrollView.frameLayoutGuide.centerXAnchor),
-            searchBar.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor, multiplier: 0.92),
-            
-            carCategoryCollectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 8),
-            carCategoryCollectionView.centerXAnchor.constraint(equalTo: scrollView.frameLayoutGuide.centerXAnchor),
-            carCategoryCollectionView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor, multiplier: 0.92),
-            carCategoryCollectionView.heightAnchor.constraint(equalToConstant: 140),
-            
-            vehiclesLabel.topAnchor.constraint(equalTo: carCategoryCollectionView.bottomAnchor, constant: 16),
-            vehiclesLabel.leadingAnchor.constraint(equalTo: carCollectionView.leadingAnchor),
-            
-            carCollectionView.topAnchor.constraint(equalTo: vehiclesLabel.bottomAnchor, constant: 16),
-            carCollectionView.centerXAnchor.constraint(equalTo: scrollView.frameLayoutGuide.centerXAnchor),
-            carCollectionView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor, multiplier: 0.92),
-            carCollectionHeightConstant,
-            carCollectionView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor)
+            carCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            carCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            carCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.92),
+            carCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
@@ -149,9 +82,6 @@ class VehiclesController: UIViewController {
         filteredCars = fileManager.cars.filter({ $0.carCategory == carCategories[selectedCarCategoryIndex].carCategory })
         
         carCollectionView.reloadData()
-        
-        carCollectionView.layoutIfNeeded()
-        carCollectionHeightConstant.constant = carCollectionView.contentSize.height
     }
 }
 
@@ -159,23 +89,10 @@ class VehiclesController: UIViewController {
 
 extension VehiclesController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == carCategoryCollectionView {
-            return carCategories.count
-        } else {
-            return filteredCars.count
-        }
+        filteredCars.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == carCategoryCollectionView {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CarCategoryCell", for: indexPath) as? CarCategoryCell else {
-                return UICollectionViewCell()
-            }
-            
-            cell.configureCell(carCategory: carCategories[indexPath.item],selected: indexPath.item == selectedCarCategoryIndex)
-            return cell
-        }
-        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VehiclesCell", for: indexPath) as? VehiclesCell else {
             return UICollectionViewCell()
         }
@@ -183,26 +100,30 @@ extension VehiclesController: UICollectionViewDataSource {
         cell.configureCell(car: filteredCars[indexPath.item])
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "CarCategoryHeader", for: indexPath) as? CarCategoryHeader else {
+            return UICollectionReusableView()
+        }
+        
+        header.configureHeader(carCategories: carCategories, selectedIndex: selectedCarCategoryIndex)
+        header.categorySelected = { selectedIndex in
+            self.selectedCarCategoryIndex = selectedIndex
+            self.filterCars()
+        }
+        return header
+    }
 }
 
 //MARK: Vehicles FlowLayout
 
 extension VehiclesController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == carCategoryCollectionView {
-            return .init(width: 120, height: 140)
-        } else {
-            let width = collectionView.frame.width
-            return .init(width: width, height: 324)
-        }
+        let width = collectionView.frame.width
+        return .init(width: width, height: 324)
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == carCategoryCollectionView {
-            selectedCarCategoryIndex = indexPath.item
-            
-            carCategoryCollectionView.reloadData()
-            filterCars()
-        }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        .init(width: collectionView.frame.width, height: 192)
     }
 }
