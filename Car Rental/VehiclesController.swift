@@ -107,7 +107,7 @@ extension VehiclesController: UICollectionViewDataSource {
         }
         
         header.configureHeader(carCategories: carCategories, selectedIndex: selectedCarCategoryIndex)
-        header.categorySelected = { selectedIndex in
+        header.carCategoryCallback = { selectedIndex in
             self.selectedCarCategoryIndex = selectedIndex
             self.filterCars()
         }
@@ -124,6 +124,7 @@ extension VehiclesController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        .init(width: collectionView.frame.width, height: 192)
+        let width = collectionView.frame.width
+        return .init(width: width, height: 192)
     }
 }

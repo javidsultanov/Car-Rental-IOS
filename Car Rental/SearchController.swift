@@ -15,6 +15,10 @@ class SearchController: UIViewController {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 12
         layout.minimumInteritemSpacing = 12
+        layout.sectionInset = .init(top: 72,
+                                    left: 0,
+                                    bottom: 0,
+                                    right: 0)
         
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.register(SearchCell.self, forCellWithReuseIdentifier: "SearchCell")
@@ -32,14 +36,17 @@ class SearchController: UIViewController {
     }()
     
     private var fileManager = CarFileManager()
-
+    
+    private var filteredCars: [Car] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
         configureConstraints()
         fileManager.getCarItems()
-        carCollectionView.reloadData()
+        
+        filteredCars = fileManager.cars
     }
     
     //MARK: View Functions
@@ -50,28 +57,37 @@ class SearchController: UIViewController {
         
         carCollectionView.dataSource = self
         carCollectionView.delegate = self
+        searchBar.delegate = self
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
     
     private func configureConstraints() {
-        view.addSubview(searchBar)
         view.addSubview(carCollectionView)
+        carCollectionView.addSubview(searchBar)
         
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
-            searchBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            searchBar.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.92),
-            
-            carCollectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 8),
+            carCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             carCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             carCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.92),
-            carCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            carCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            searchBar.topAnchor.constraint(equalTo: carCollectionView.contentLayoutGuide.topAnchor, constant: 8),
+            searchBar.leadingAnchor.constraint(equalTo: carCollectionView.frameLayoutGuide.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: carCollectionView.frameLayoutGuide.trailingAnchor)
         ])
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 
 extension SearchController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        fileManager.cars.count
+        filteredCars.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -79,16 +95,30 @@ extension SearchController: UICollectionViewDataSource, UICollectionViewDelegate
             return UICollectionViewCell()
         }
         
-        cell.configureCell(car: fileManager.cars[indexPath.item])
+        cell.configureCell(car: filteredCars[indexPath.item])
         return cell
     }
-    
-    
 }
 
 extension SearchController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            let width = collectionView.frame.width
-            return .init(width: width, height: 324)
+        let width = collectionView.frame.width
+        return .init(width: width, height: 324)
+    }
+}
+
+extension SearchController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            filteredCars = fileManager.cars
+        } else {
+            filteredCars = fileManager.cars.filter({ $0.carBrand.lowercased().contains(searchText.lowercased()) || $0.carModel.lowercased().contains(searchText.lowercased()) })
+        }
+        
+        carCollectionView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }

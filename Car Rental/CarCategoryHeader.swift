@@ -35,7 +35,7 @@ class CarCategoryHeader: UICollectionReusableView {
     
     private var selectedCarCategoryIndex = 0
     
-    var categorySelected: ((Int) -> Void)?
+    var carCategoryCallback: ((Int) -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -101,6 +101,6 @@ extension CarCategoryHeader: UICollectionViewDelegateFlowLayout {
         selectedCarCategoryIndex = indexPath.item
         carCategoryCollectionView.reloadData()
         
-        categorySelected?(indexPath.item)
+        carCategoryCallback?(indexPath.item)
     }
 }
