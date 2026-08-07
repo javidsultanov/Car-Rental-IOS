@@ -117,13 +117,22 @@ class VehiclesCell: UICollectionViewCell {
         ])
     }
     
-    func configureCell(car: Car) {
-        carImageView.image = UIImage(named: car.carImage)
+//    func configureCell(car: Car) {
+//        carImageView.image = UIImage(named: car.carImage)
+//        carBrandLabel.text = car.carBrand
+//        carPriceLabel.text = "$\(Int(car.carPrice))"
+//        carModelLabel.text = car.carModel
+//        carEngineLabel.text = car.carEngine
+//    }
+    
+    func configureCell(car: CarEntity) {
+        carImageView.image = UIImage(named: car.carImage ?? "")
         carBrandLabel.text = car.carBrand
         carPriceLabel.text = "$\(Int(car.carPrice))"
         carModelLabel.text = car.carModel
         carEngineLabel.text = car.carEngine
     }
+
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

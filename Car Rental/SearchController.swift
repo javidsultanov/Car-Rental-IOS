@@ -35,18 +35,24 @@ class SearchController: UIViewController {
         return bar
     }()
     
-    private var fileManager = CarFileManager()
+//    private var fileManager = CarFileManager()
     
-    private var filteredCars: [Car] = []
+    private let viewModel = CarViewModel()
+    
+//    private var filteredCars: [Car] = []
+    
+    private var filteredCars: [CarEntity] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
         configureConstraints()
-        fileManager.getCarItems()
+//        fileManager.getCarItems()
         
-        filteredCars = fileManager.cars
+//        filteredCars = fileManager.cars
+        configureViewModel()
+        
     }
     
     //MARK: View Functions
@@ -80,6 +86,24 @@ class SearchController: UIViewController {
         ])
     }
     
+    private func configureViewModel() {
+        viewModel.successCallback = {
+            if self.viewModel.cars.isEmpty {
+                self.viewModel.loadCarsToCoreData()
+            } else {
+                self.filteredCars = self.viewModel.cars
+                self.carCollectionView.reloadData()
+            }
+        }
+        
+        viewModel.errorCallback = { message in
+            self.showDefaultAlert(title: "Error",
+                                  message: message)
+        }
+        
+        viewModel.fetchCars()
+    }
+    
     @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -109,10 +133,22 @@ extension SearchController: UICollectionViewDelegateFlowLayout {
 
 extension SearchController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        //        if searchText.isEmpty {
+        //            filteredCars = fileManager.cars
+        //        } else {
+        //            filteredCars = fileManager.cars.filter({ $0.carBrand.lowercased().contains(searchText.lowercased()) || $0.carModel.lowercased().contains(searchText.lowercased())
+//    })
+//        }
+//        
+//        carCollectionView.reloadData()
+        
         if searchText.isEmpty {
-            filteredCars = fileManager.cars
+            filteredCars = viewModel.cars
         } else {
-            filteredCars = fileManager.cars.filter({ $0.carBrand.lowercased().contains(searchText.lowercased()) || $0.carModel.lowercased().contains(searchText.lowercased()) })
+            filteredCars = viewModel.cars.filter({
+                ($0.carBrand ?? "").lowercased().contains(searchText.lowercased()) ||
+                ($0.carModel ?? "").lowercased().contains(searchText.lowercased())
+            })
         }
         
         carCollectionView.reloadData()

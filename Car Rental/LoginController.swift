@@ -160,7 +160,7 @@ class LoginController: UIViewController {
     
     private func configureViewModel() {
         viewModel.errorCallback = { message in
-            self.showDefaultAlert(title: "Login Failed",
+            self.showDefaultAlert(title: "Error",
                                   message: message)
         }
         

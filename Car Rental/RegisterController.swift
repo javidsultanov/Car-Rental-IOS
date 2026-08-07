@@ -190,7 +190,7 @@ class RegisterController: UIViewController {
         }
         
         viewModel.errorCallback = { message in
-            self.showDefaultAlert(title: "Registration Failed",
+            self.showDefaultAlert(title: "Error",
                                   message: message)
         }
     }

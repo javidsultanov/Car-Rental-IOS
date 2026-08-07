@@ -23,14 +23,14 @@ class CarViewModel {
         manager.getCars()
     }
     
-    func saveCar(carImage: String,
+    func loadCar(carImage: String,
                  carBrand: String,
                  carModel: String,
                  carCategory: String,
                  carEngine: String,
                  carPrice: Double) {
         
-        manager.saveCar(carImage: carImage,
+        manager.loadCar(carImage: carImage,
                         carBrand: carBrand,
                         carModel: carModel,
                         carCategory: carCategory,
@@ -51,6 +51,29 @@ class CarViewModel {
         manager.saveCallback = { car in
             self.cars.append(car)
             self.successCallback?()
+        }
+    }
+    
+    func loadCarsToCoreData() {
+        guard let url = Bundle.main.url(forResource: "Car", withExtension: "json") else {
+            errorCallback?("Error")
+            return
+        }
+        
+        do {
+            let data = try Data(contentsOf: url)
+            let cars = try JSONDecoder().decode([Car].self, from: data)
+            
+            for car in cars {
+                loadCar(carImage: car.carImage,
+                        carBrand: car.carBrand,
+                        carModel: car.carModel,
+                        carCategory: car.carCategory,
+                        carEngine: car.carEngine,
+                        carPrice: car.carPrice)
+            }
+        } catch {
+            errorCallback?(error.localizedDescription)
         }
     }
 }

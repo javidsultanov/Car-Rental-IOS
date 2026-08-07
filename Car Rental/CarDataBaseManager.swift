@@ -25,7 +25,7 @@ class CarDataBaseManager {
         }
     }
     
-    func saveCar(carImage: String,
+    func loadCar(carImage: String,
                   carBrand: String,
                   carModel: String,
                   carCategory: String,
@@ -43,7 +43,7 @@ class CarDataBaseManager {
         do {
             try context.save()
             saveCallback?(car)
-            print("Car Saved")
+            print("Car Loaded")
         } catch {
             errorCallback?(error.localizedDescription)
         }

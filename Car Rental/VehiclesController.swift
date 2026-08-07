@@ -24,10 +24,14 @@ class VehiclesController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-                
-    private var fileManager = CarFileManager()
     
-    private var filteredCars: [Car] = []
+    //    private var fileManager = CarFileManager()
+    
+    private let viewModel = CarViewModel()
+    
+//    private var filteredCars: [Car] = []
+    
+    private var filteredCars: [CarEntity] = []
     
     private var selectedCarCategoryIndex = 0
     
@@ -40,15 +44,16 @@ class VehiclesController: UIViewController {
                                                 .init(carImage: "car_3",
                                                       carCategory: "SUV",
                                                       carCount: 0)]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
         configureConstraints()
-        fileManager.getCarItems()
-        updateCategoryCounts()
-        filterCars()
+        //        fileManager.getCarItems()
+        configureViewModel()
+        //        updateCarCategoryCounts()
+        //        filterCars()
     }
     
     //MARK: View Functions
@@ -72,14 +77,44 @@ class VehiclesController: UIViewController {
         ])
     }
     
-    private func updateCategoryCounts() {
+    private func configureViewModel() {
+        viewModel.successCallback = {
+            if self.viewModel.cars.isEmpty {
+                self.viewModel.loadCarsToCoreData()
+            } else {
+                self.updateCarCategoryCounts()
+                self.filterCars()
+            }
+        }
+        
+        viewModel.errorCallback = { message in
+            self.showDefaultAlert(title: "Error",
+                                  message: message)
+        }
+        
+        viewModel.fetchCars()
+    }
+    
+    //    private func updateCarCategoryCounts() {
+    //        for index in carCategories.indices {
+    //            carCategories[index].carCount = fileManager.cars.filter({ $0.carCategory == carCategories[index].carCategory }).count
+    //        }
+    //    }
+    
+    private func updateCarCategoryCounts() {
         for index in carCategories.indices {
-            carCategories[index].carCount = fileManager.cars.filter({ $0.carCategory == carCategories[index].carCategory }).count
+            carCategories[index].carCount = viewModel.cars.filter({ $0.carCategory == carCategories[index].carCategory }).count
         }
     }
     
+    //    private func filterCars() {
+    //        filteredCars = fileManager.cars.filter({ $0.carCategory == carCategories[selectedCarCategoryIndex].carCategory })
+    //
+    //        carCollectionView.reloadData()
+    //    }
+    
     private func filterCars() {
-        filteredCars = fileManager.cars.filter({ $0.carCategory == carCategories[selectedCarCategoryIndex].carCategory })
+        filteredCars = viewModel.cars.filter({ $0.carCategory == carCategories[selectedCarCategoryIndex].carCategory })
         
         carCollectionView.reloadData()
     }
@@ -109,6 +144,7 @@ extension VehiclesController: UICollectionViewDataSource {
         header.configureHeader(carCategories: carCategories, selectedIndex: selectedCarCategoryIndex)
         header.carCategoryCallback = { selectedIndex in
             self.selectedCarCategoryIndex = selectedIndex
+//            self.filterCars()
             self.filterCars()
         }
         return header
