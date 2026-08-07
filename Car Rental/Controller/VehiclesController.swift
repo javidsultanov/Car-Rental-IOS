@@ -120,7 +120,7 @@ class VehiclesController: UIViewController {
     }
 }
 
-//  MARK: Vehicles DataSource | Delegate
+//  MARK: Vehicles DataSource
 
 extension VehiclesController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -151,7 +151,7 @@ extension VehiclesController: UICollectionViewDataSource {
     }
 }
 
-//MARK: Vehicles FlowLayout
+//MARK: Vehicles DelegateFlowLayout
 
 extension VehiclesController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

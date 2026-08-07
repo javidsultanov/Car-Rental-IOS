@@ -7,6 +7,8 @@
 
 import UIKit
 
+//MARK: CarCategory Header
+
 class CarCategoryHeader: UICollectionReusableView {
     private var carCategoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -43,6 +45,8 @@ class CarCategoryHeader: UICollectionReusableView {
         configureUI()
         configureConstraints()
     }
+    
+    //MARK: Header Functions
     
     private func configureUI() {
         backgroundColor = .secondarySystemBackground
@@ -91,6 +95,8 @@ extension CarCategoryHeader: UICollectionViewDataSource {
         return cell
     }
 }
+
+//MARK: CarCategory DelegateFlowLayout
 
 extension CarCategoryHeader: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

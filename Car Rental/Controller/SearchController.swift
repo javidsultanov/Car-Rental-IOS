@@ -109,7 +109,9 @@ class SearchController: UIViewController {
     }
 }
 
-extension SearchController: UICollectionViewDataSource, UICollectionViewDelegate {
+//MARK: Search DataSource
+
+extension SearchController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         filteredCars.count
     }
@@ -124,12 +126,16 @@ extension SearchController: UICollectionViewDataSource, UICollectionViewDelegate
     }
 }
 
+//MARK: Search DelegateFlowLayout
+
 extension SearchController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width
         return .init(width: width, height: 324)
     }
 }
+
+//MARK: SearchBar Delegate
 
 extension SearchController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
