@@ -117,14 +117,18 @@ class RegisterController: UIViewController {
         return view
     }()
     
-    private var fileManager = UserFileManager()
-
+//    private var fileManager = UserFileManager()
+    
+    private let viewModel = UserViewModel()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
         configureConstraints()
-        fileManager.fetchData()
+//        fileManager.fetchData()
+        configureViewModel()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -177,6 +181,20 @@ class RegisterController: UIViewController {
         ])
     }
     
+    private func configureViewModel() {
+        viewModel.successCallback = {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let sceneDelegate = windowScene.delegate as? SceneDelegate {
+                sceneDelegate.setLoginAsRoot()
+            }
+        }
+        
+        viewModel.errorCallback = { message in
+            self.showDefaultAlert(title: "Registration Failed",
+                                  message: message)
+        }
+    }
+    
     @objc private func switchButtonTapped() {
         passwordTextField.isSecureTextEntry = !passwordSwitchButton.isOn
     }
@@ -186,27 +204,41 @@ class RegisterController: UIViewController {
            let writtenPhoneNumber = phoneNumberTextField.text, !writtenPhoneNumber.isEmpty,
            let writtenEmail = emailTextField.text, !writtenEmail.isEmpty,
            let writtenPassword = passwordTextField.text, !writtenPassword.isEmpty {
-            let userInfo: User = .init(fullName: writtenFullName,
-                                       phoneNumber: writtenPhoneNumber,
-                                       email: writtenEmail,
-                                       password: writtenPassword)
+//            let userInfo: User = .init(fullName: writtenFullName,
+//                                       phoneNumber: writtenPhoneNumber,
+//                                       email: writtenEmail,
+//                                       password: writtenPassword)
+            
+            viewModel.saveUser(fullName: writtenFullName,
+                               phoneNumber: writtenPhoneNumber,
+                               email: writtenEmail,
+                               password: writtenPassword)
+            
+//            print("""
+//                Registration Complete!
+//                
+//                Full Name: \(userInfo.fullName)
+//                Phone Number: \(userInfo.phoneNumber)
+//                Email: \(userInfo.email)
+//                Password: \(userInfo.password)
+//                """)
             
             print("""
                 Registration Complete!
                 
-                Full Name: \(userInfo.fullName)
-                Phone Number: \(userInfo.phoneNumber)
-                Email: \(userInfo.email)
-                Password: \(userInfo.password)
+                Full Name: \(writtenFullName)
+                Phone Number: \(writtenPhoneNumber)
+                Email: \(writtenEmail)
+                Password: \(writtenPassword)
                 """)
             
-            fileManager.users.append(userInfo)
-            fileManager.saveUser()
+//            fileManager.users.append(userInfo)
+//            fileManager.saveUser()
             
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let SceneDelegate = windowScene.delegate as? SceneDelegate {
-                SceneDelegate.setLoginAsRoot()
-            }
+////            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+////               let SceneDelegate = windowScene.delegate as? SceneDelegate {
+////                SceneDelegate.setLoginAsRoot()
+//            }
         } else {
             showDefaultAlert(title: "Registration Incomplete!",
                              message: "All gaps must be filled")

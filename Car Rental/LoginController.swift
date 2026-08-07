@@ -99,14 +99,17 @@ class LoginController: UIViewController {
         return view
     }()
     
-    private var fileManager = UserFileManager()
+//    private var fileManager = UserFileManager()
+    
+    private let viewModel = UserViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
         configureConstraints()
-        fileManager.fetchData()
+//        fileManager.fetchData()
+        configureViewModel()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -155,6 +158,15 @@ class LoginController: UIViewController {
         ])
     }
     
+    private func configureViewModel() {
+        viewModel.errorCallback = { message in
+            self.showDefaultAlert(title: "Login Failed",
+                                  message: message)
+        }
+        
+        viewModel.fetchUsers()
+    }
+    
     @objc private func switchButtonTapped() {
         passwordTextField.isSecureTextEntry = !passwordSwitchButton.isOn
     }
@@ -162,7 +174,9 @@ class LoginController: UIViewController {
     @objc private func loginButtonTapped() {
         if let writtenFullName = fullNameTextField.text, !writtenFullName.isEmpty,
            let writtenPassword = passwordTextField.text, !writtenPassword.isEmpty {
-               let savedUser = fileManager.users.contains(where: { $0.fullName == writtenFullName && $0.password == writtenPassword })
+//               let savedUser = fileManager.users.contains(where: { $0.fullName == writtenFullName && $0.password == writtenPassword })
+            
+            let savedUser = viewModel.users.contains(where: { $0.fullName == writtenFullName && $0.password == writtenPassword })
                
                if savedUser {
                    UserDefaults.standard.set(true, forKey: "isLoggedIn")
